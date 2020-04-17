@@ -1,19 +1,19 @@
 package com.gala.shop.service.impl;
 
 import com.gala.shop.model.Category;
-import com.gala.shop.repository.GoodsCategoryRepository;
-import com.gala.shop.service.GoodsCategoryService;
+import com.gala.shop.repository.CategoryRepository;
+import com.gala.shop.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class GoodsCategoryServiceImpl implements GoodsCategoryService {
-    private final GoodsCategoryRepository repository;
+public class CategoryServiceImpl implements CategoryService {
+    private final CategoryRepository repository;
 
     @Autowired
-    public GoodsCategoryServiceImpl(GoodsCategoryRepository repository) {
+    public CategoryServiceImpl(CategoryRepository repository) {
         this.repository = repository;
     }
 

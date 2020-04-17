@@ -1,6 +1,8 @@
 package com.gala.shop.repository;
 
 import com.gala.shop.model.StorageItem;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ public interface StorageItemRepository {
 
     List<StorageItem> getAll();
 
-    List<StorageItem> getAllAvailableByCategory(int categoryId);
+    Page<StorageItem> getAllAvailableByCategory(int categoryId, Pageable pageRequest);
 
-    List<StorageItem> getAllByCategory(int categoryId);
+    Page<StorageItem> getAllByCategory(int categoryId, Pageable pageRequest);
 }

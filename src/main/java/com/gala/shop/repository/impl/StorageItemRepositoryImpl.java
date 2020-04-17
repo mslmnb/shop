@@ -4,6 +4,8 @@ import com.gala.shop.model.StorageItem;
 import com.gala.shop.repository.StorageItemRepository;
 import com.gala.shop.repository.datajpa.CrudStorageItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,7 +40,7 @@ public class StorageItemRepositoryImpl implements StorageItemRepository {
 
     @Override
     public StorageItem get(int id) {
-        return crudRepository.getOne(id);
+        return crudRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -47,13 +49,13 @@ public class StorageItemRepositoryImpl implements StorageItemRepository {
     }
 
     @Override
-    public List<StorageItem> getAllAvailableByCategory(int categoryId) {
-        return crudRepository.getAllAvailableByCategory(categoryId);
+    public Page<StorageItem> getAllAvailableByCategory(int categoryId, Pageable pageRequest) {
+        return crudRepository.getAllAvailableByCategory(categoryId, pageRequest);
     }
 
     @Override
-    public List<StorageItem> getAllByCategory(int categoryId) {
-        return crudRepository.getAllByCategory(categoryId);
+    public Page<StorageItem> getAllByCategory(int categoryId, Pageable pageRequest) {
+        return crudRepository.getAllByCategory(categoryId, pageRequest);
     }
 
 }

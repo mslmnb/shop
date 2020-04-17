@@ -1,10 +1,12 @@
 package com.gala.shop.controller;
 
-import com.gala.shop.model.StorageItem;
 import com.gala.shop.model.TO.StorageItemTO;
 import com.gala.shop.service.StorageItemService;
 import com.gala.shop.util.TOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,12 +27,12 @@ public class StorageItemController {
         this.service = service;
     }
 
-    @GetMapping("/category/{categoryId}")
-    List<StorageItemTO> getAllAvailableByCategory(@PathVariable int categoryId) {
-        List<StorageItem> l =service.getAllAvailableByCategory(categoryId);
-        return service.getAllAvailableByCategory(categoryId)
+    @GetMapping("/categories/{categoryId}")
+    Page<StorageItemTO> getAllAvailableByCategory(@PathVariable int categoryId, Pageable pageRequest) {
+        List<StorageItemTO> resultContent = service.getAllAvailableByCategory(categoryId, pageRequest).getContent()
                 .stream()
                 .map(storageItem -> TOUtil.asTO(storageItem))
                 .collect(Collectors.toList());
+        return new PageImpl<>(resultContent, pageRequest, resultContent.size());
     }
 }

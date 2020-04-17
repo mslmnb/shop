@@ -1,9 +1,5 @@
 package com.gala.shop.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 import javax.persistence.*;
 
@@ -34,6 +30,7 @@ public class BaseEntity {
         return id;
     }
 
+    @Transient
     public boolean isNew() {
         return (getId() == null);
     }

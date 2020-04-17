@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -28,8 +29,13 @@ public class StorageItem extends BaseEntity{
     @Column(name = "available")
     private Boolean available;
 
-    @Embedded
-    private Goods goods;
+    @NotBlank
+    @Column(name = "goods")
+    private String goods;
+
+    @NotBlank
+    @Column(name = "description")
+    private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
@@ -37,13 +43,15 @@ public class StorageItem extends BaseEntity{
     private Category category;
 
     @Builder
+
     public StorageItem(Integer id, Double cost, Integer count, Boolean available,
-                       String goodsName, String goodsDescription, Integer categoryId) {
+                       String goods, String description, Integer categoryId) {
         super(id);
         this.cost = cost;
         this.count = count;
         this.available = available;
-        this.goods = Goods.builder().name(goodsName).description(goodsDescription).build();
+        this.goods = goods;
+        this.description = description;
         this.category = Category.builder().id(categoryId).build();
     }
 }

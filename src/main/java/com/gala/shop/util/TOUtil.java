@@ -1,7 +1,9 @@
 package com.gala.shop.util;
 
+import com.gala.shop.model.Category;
 import com.gala.shop.model.Role;
 import com.gala.shop.model.StorageItem;
+import com.gala.shop.model.TO.CategoryTO;
 import com.gala.shop.model.TO.StorageItemTO;
 import com.gala.shop.model.TO.UserTO;
 import com.gala.shop.model.User;
@@ -31,8 +33,8 @@ public class TOUtil {
         return StorageItem.builder()
                 .id(storageItemTO.getId())
                 .available(storageItemTO.getAvailable())
-                .goodsName(storageItemTO.getGoodsName())
-                .goodsDescription(storageItemTO.getGoodsDescription())
+                .goods(storageItemTO.getGoods())
+                .description(storageItemTO.getDescription())
                 .categoryId(storageItemTO.getCategoryId())
                 .cost(storageItemTO.getCost())
                 .count(storageItemTO.getCount())
@@ -43,11 +45,18 @@ public class TOUtil {
         return StorageItemTO.builder()
                 .id(storageItem.getId())
                 .available(storageItem.getAvailable())
-                .goodsName(storageItem.getGoods().getName())
-                .goodsDescription(storageItem.getGoods().getDescription())
+                .goods(storageItem.getGoods())
+                .description(storageItem.getDescription())
                 .categoryId(storageItem.getCategory().getId())
                 .cost(storageItem.getCost())
                 .count(storageItem.getCount())
+                .build();
+    }
+
+    public static CategoryTO asTO(Category category) {
+        return CategoryTO.builder()
+                .id(category.getId())
+                .name(category.getName())
                 .build();
     }
 }

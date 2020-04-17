@@ -18,19 +18,19 @@ public class StorageItemTO extends BaseEntity {
     private Integer count;
     private Boolean available;
     @NotNull
-    private String goodsName;
-    private String goodsDescription;
+    private String goods;
+    private String description;
     private Integer categoryId;
 
     @Builder
-    public StorageItemTO(Integer id, Double cost, Integer count, Boolean available, String goodsName,
-                         String goodsDescription, Integer categoryId) {
+    public StorageItemTO(Integer id, Double cost, Integer count, Boolean available, String goods,
+                         String description, Integer categoryId) {
         super(id);
         this.cost = cost;
         this.count = count;
         this.available = available;
-        this.goodsName = goodsName;
-        this.goodsDescription = goodsDescription;
+        this.goods = goods;
+        this.description = description;
         this.categoryId = categoryId;
     }
 }

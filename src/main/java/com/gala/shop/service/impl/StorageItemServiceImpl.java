@@ -1,10 +1,13 @@
 package com.gala.shop.service.impl;
 
+import com.gala.shop.model.Category;
 import com.gala.shop.model.StorageItem;
 import com.gala.shop.repository.StorageItemRepository;
 import com.gala.shop.service.StorageItemService;
 import com.gala.shop.util.exception.NotFoundAppException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,11 +25,18 @@ public class StorageItemServiceImpl implements StorageItemService {
     }
 
     @Override
+    public StorageItem create(StorageItem storageItem, int categoryId)  throws NotFoundAppException {
+        storageItem.setId(null);
+        storageItem.setCategory(Category.builder().id(categoryId).build());
+        return repository.save(storageItem);
+    }
+
+    @Override
     @Transactional
-    public StorageItem save(StorageItem storageItem)  throws NotFoundAppException {
-        if(!storageItem.isNew()) {
-            get(storageItem.getId());
-        }
+    public StorageItem update(int id, StorageItem storageItem)  throws NotFoundAppException {
+        StorageItem targetStorageItem = get(id);
+        storageItem.setId(id);
+        storageItem.setCategory(targetStorageItem.getCategory());
         return repository.save(storageItem);
     }
 
@@ -51,12 +61,12 @@ public class StorageItemServiceImpl implements StorageItemService {
     }
 
     @Override
-    public List<StorageItem> getAllAvailableByCategory(int categoryId) {
-        return repository.getAllAvailableByCategory(categoryId);
+    public Page<StorageItem> getAllAvailableByCategory(int categoryId, Pageable pageRequest) {
+        return repository.getAllAvailableByCategory(categoryId, pageRequest);
     }
 
     @Override
-    public List<StorageItem> getAllByCategory(int categoryId) {
-        return repository.getAllByCategory(categoryId);
+    public Page<StorageItem> getAllByCategory(int categoryId, Pageable pageRequest) {
+        return repository.getAllByCategory(categoryId, pageRequest);
     }
 }

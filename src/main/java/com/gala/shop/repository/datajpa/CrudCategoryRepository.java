@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public interface CrudGoodsCategoryRepository extends JpaRepository<Category, Integer> {
+public interface CrudCategoryRepository extends JpaRepository<Category, Integer> {
     @Override
     List<Category> findAll();
 }
