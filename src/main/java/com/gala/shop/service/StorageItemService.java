@@ -18,7 +18,7 @@ public interface StorageItemService {
 
     StorageItem get(int id);
 
-    List<StorageItem> getAll();
+    Page<StorageItem> getAll(Pageable pageRequest);
 
     Page<StorageItem> getAllAvailableByCategory(int categoryId, Pageable pageRequest);
 

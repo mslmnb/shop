@@ -44,8 +44,8 @@ public class StorageItemRepositoryImpl implements StorageItemRepository {
     }
 
     @Override
-    public List<StorageItem> getAll() {
-        return crudRepository.findAll();
+    public Page<StorageItem> getAll(Pageable pageRequest) {
+        return crudRepository.findAll(pageRequest);
     }
 
     @Override

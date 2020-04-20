@@ -56,8 +56,8 @@ public class StorageItemServiceImpl implements StorageItemService {
     }
 
     @Override
-    public List<StorageItem> getAll() {
-        return repository.getAll();
+    public Page<StorageItem> getAll(Pageable pageRequest) {
+        return repository.getAll(pageRequest);
     }
 
     @Override

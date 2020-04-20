@@ -34,7 +34,7 @@ public interface CrudStorageItemRepository extends PagingAndSortingRepository<St
     Optional<StorageItem> findById(Integer id);
 
     @Override
-    List<StorageItem> findAll();
+    Page<StorageItem> findAll(Pageable pageRequest);
 
     @Query("SELECT s FROM StorageItem s WHERE s.category.id=:categoryId AND s.available=1")
     Page<StorageItem> getAllAvailableByCategory(@Param("categoryId") int categoryId, Pageable pageRequest);

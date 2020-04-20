@@ -8,10 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,8 +24,9 @@ public class StorageItemController {
         this.service = service;
     }
 
-    @GetMapping("/categories/{categoryId}")
-    Page<StorageItemTO> getAllAvailableByCategory(@PathVariable int categoryId, Pageable pageRequest) {
+    @GetMapping()
+    Page<StorageItemTO> getAllAvailableByCategory(@RequestParam(value = "category") int categoryId,
+                                                  Pageable pageRequest) {
         List<StorageItemTO> resultContent = service.getAllAvailableByCategory(categoryId, pageRequest).getContent()
                 .stream()
                 .map(storageItem -> TOUtil.asTO(storageItem))

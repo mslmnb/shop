@@ -28,21 +28,18 @@ public class AdminController {
     }
 
     @GetMapping("/storage")
-    public List<StorageItemTO> getAll() {
-        return service.getAll()
+    public Page<StorageItemTO> getAllByCategory(@RequestParam(value = "category", required = false) Integer categoryId,
+                                                Pageable pageRequest) {
+        List<StorageItemTO> resultContent =  (categoryId == null)
+            ? service.getAll(pageRequest)
+                .stream()
+                .map(storageItem -> TOUtil.asTO(storageItem))
+                .collect(Collectors.toList())
+            : service.getAllByCategory(categoryId, pageRequest).getContent()
                 .stream()
                 .map(storageItem -> TOUtil.asTO(storageItem))
                 .collect(Collectors.toList());
-    }
-
-    @GetMapping("/storage/categories/{categoryId}")
-    public Page<StorageItemTO> getAllByCategory(@PathVariable int categoryId, Pageable pageRequest) {
-        List<StorageItemTO> resultContent =  service.getAllByCategory(categoryId, pageRequest).getContent()
-                .stream()
-                .map(storageItem -> TOUtil.asTO(storageItem))
-                .collect(Collectors.toList());
-        Page<StorageItemTO> result = new PageImpl<>(resultContent, pageRequest, resultContent.size());
-        return result;
+        return new PageImpl<>(resultContent, pageRequest, resultContent.size());
     }
 
     @GetMapping("/storage/{id}")
